@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+
+  "name": "Get instance's IP",
+  "description": "This extension shows a list of your instances and their IPs",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "aws-js-sdk.html"
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "*://*.amazonaws.com/*",
+    "*://amazonaws.com/*"
+  ]
+}
