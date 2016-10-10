@@ -2,58 +2,35 @@
 <html>
 <head>
     <title>AWS SDK for JavaScript - Sample Application</title>
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.6.7.min.js"></script>
+    <script src="aws-sdk-2.6.7.min.js"></script>
+    <script src="jquery-1.12.4.min.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
-    <input type="file" id="file-chooser" />
-    <button id="upload-button" style="display:none">Upload to S3</button>
-    <div id="results"></div>
-    <div id="fb-root"></div>
-    <script type="text/javascript">
-        AWS.config.update({
-            accessKeyId: 'AKIAJ4ASK5IGWA6WGG2Q',
-            secretAccessKey: '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'
-        });
-        AWS.config.region = 'us-east-1';
-        var ec2 = new AWS.EC2();
-        
+    
 
-        var params = {
-            DryRun: false,
-            Filters: [
-                {
-                  Name: 'STRING_VALUE',
-                  Values: [
-                    'STRING_VALUE',
-                    /* more items */
-                  ]
-                },
-                /* more items */
-            ],
-            InstanceIds: [
-                'STRING_VALUE',
-                /* more items */
-            ],
-            MaxResults: 0,
-            NextToken: 'STRING_VALUE'
-        };
+    <div>
+        <input type="button" id="clear" value="Clear" />
+    </div>
+    
+    <div id="auth">    
+        Access Key <input type="text" id="access_key" />
+        Secret <input type="text" id="secret" />
+        Region <select name="region" id="region">
+            <option value="us-east-1" selected>us-east-1</option>
+            <option value="us-west-1">us-west-1</option>
+        </select>
+        <input type="button" value="Save" id="save_credentials">
+    </div>
 
-        ec2.describeInstances({}, function(err, data) {
-            if (err) console.log(err, err.stack); // an error occurred
-            else     console.log(data);           // successful response
-            
-//            var instances = {};
-            data = data.Reservations;
-            console.log(data)
-            for(var i=0; i < data.length; i++){
-            //    instances[i].name = data[i].
-                console.log('Type: '    + data[i].Instances[0].InstanceType);
-                console.log('Pub IP: '  + data[i].Instances[0].PublicIpAddress);
-                console.log('LAN IP: '  + data[i].Instances[0].PrivateIpAddress);
-                console.log('Name: '    + data[i].Instances[0].Tags[0].Value);
-            }
-        });
-
-    </script>
+    <div id="results">
+        <table id="instances">
+            <tr>
+                <td>
+                    
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
