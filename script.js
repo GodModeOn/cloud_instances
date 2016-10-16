@@ -40,8 +40,8 @@ function authorize(items){
         secretAccessKey: items.secret
     });
     AWS.config.region = items.region;
-    
-    
+
+
     /*
      * Hide login div if authorized.
      * Request all the instances linked to account.
@@ -58,14 +58,18 @@ function authorize(items){
 
 
 function get_ip_addrs(data){
+    /*
+     * Build an array of objects with instances data
+     */
     var instances = [];
     data = data.Reservations;
+    //console.log(data);
     for(var i=0; i < data.length; i++){
         let to_storage = {}
         instances[i] = {}
         instances[i].lan_ip = data[i].Instances[0].PrivateIpAddress;
         instances[i].wan_ip = data[i].Instances[0].PublicIpAddress;
-            
+
         for(var y = 0; y < data[i].Instances[0].Tags.length; y++){
             if(data[i].Instances[0].Tags[y].Key == 'Name'){
                 instances[i].name = data[i].Instances[0].Tags[y].Value;
@@ -82,7 +86,8 @@ function show_results(instances){
     $('#instances').empty();
     for(var i=0; i < instances.length; i++){
         document.getElementById('instances').innerHTML += '<tr><td>' +
-        instances[i].name + '</td><td>' + instances[i].lan_ip + '</td></tr>';
+        instances[i].name + '</td><td>' + instances[i].lan_ip +
+        '</td><td>' + instances[i].wan_ip + '</td></tr>';
     }
 };
 
@@ -97,5 +102,4 @@ $( '#save_credentials' ).click(function() {
 $('#clear').click(function(){
     chrome.storage.sync.clear(function(){window.close()});
 });
-
 });
