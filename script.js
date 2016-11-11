@@ -39,7 +39,12 @@ function authorize(items){
         accessKeyId: items.access_key,
         secretAccessKey: items.secret
     });
-    AWS.config.region = items.region;
+
+    if(typeof items.region === 'undefined' || items.region === null){
+        AWS.confin.region = 'us-east-1';
+    } else {
+        AWS.config.region = items.region;
+    }
 
 
     /*
